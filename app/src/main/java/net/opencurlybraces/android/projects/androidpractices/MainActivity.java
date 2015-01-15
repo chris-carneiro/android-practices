@@ -1,13 +1,15 @@
 package net.opencurlybraces.android.projects.androidpractices;
 
-import android.annotation.TargetApi;
-import android.content.ComponentCallbacks2;
-import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -18,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
 
     @InjectView (R.id.hello_text)
     TextView mHelloText;
+    AtomicBoolean mIsCharging = new AtomicBoolean();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,21 @@ public class MainActivity extends ActionBarActivity {
          * or so..
          */
         ButterKnife.inject(this);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = MainActivity.this.registerReceiver(null, ifilter);
+
+        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        if((status == BatteryManager.BATTERY_STATUS_CHARGING) != mIsCharging.get()) {
+            mIsCharging.set(status == BatteryManager.BATTERY_STATUS_CHARGING);
+
+        }
     }
 
 
