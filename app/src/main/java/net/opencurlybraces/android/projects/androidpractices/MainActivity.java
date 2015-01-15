@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import net.opencurlybraces.android.projects.androidpractices.util.PrefUtils;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import butterknife.ButterKnife;
@@ -42,9 +44,12 @@ public class MainActivity extends ActionBarActivity {
         Intent batteryStatus = MainActivity.this.registerReceiver(null, ifilter);
 
         int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        if((status == BatteryManager.BATTERY_STATUS_CHARGING) != mIsCharging.get()) {
-            mIsCharging.set(status == BatteryManager.BATTERY_STATUS_CHARGING);
+        boolean isCharging = (status == BatteryManager.BATTERY_STATUS_CHARGING || status ==
+                BatteryManager.BATTERY_STATUS_FULL);
 
+        if ((status == BatteryManager.BATTERY_STATUS_CHARGING) ^ mIsCharging.get()) {
+            mIsCharging.set(isCharging);
+            PrefUtils.setBatteryCharging(this, isCharging);
         }
     }
 
