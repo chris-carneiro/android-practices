@@ -1,5 +1,6 @@
 package net.opencurlybraces.android.projects.androidpractices;
 
+import android.content.ComponentCallbacks2;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,5 +36,16 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+
+        // release your UI resources when you receive onTrimMemory(TRIM_MEMORY_UI_HIDDEN).
+
+        if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
+            //release UI Resources here
+        }
     }
 }
