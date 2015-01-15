@@ -1,6 +1,8 @@
 package net.opencurlybraces.android.projects.androidpractices;
 
+import android.annotation.TargetApi;
 import android.content.ComponentCallbacks2;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -102,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
                  * everything that's not critical to resuming your app state.
                  */
             default:
-                //do something
+                // should not happen
 
         }
     }
