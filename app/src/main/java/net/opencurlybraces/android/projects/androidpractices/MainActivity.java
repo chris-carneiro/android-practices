@@ -13,12 +13,17 @@ import butterknife.InjectView;
 
 public class MainActivity extends ActionBarActivity {
 
-    @InjectView(R.id.hello_text) TextView mHelloText;
+
+    @InjectView(R.id.hello_text)
+    TextView mHelloText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /**
+         * Apply butterknife views injection when annotated, no need to call any findViewById() or so..
+         */
         ButterKnife.inject(this);
     }
 
@@ -48,8 +53,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
-
-        // release your UI resources when you receive onTrimMemory(TRIM_MEMORY_UI_HIDDEN).
 
         if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
             //release UI Resources here
