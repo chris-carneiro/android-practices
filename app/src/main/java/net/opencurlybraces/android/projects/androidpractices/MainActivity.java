@@ -1,5 +1,6 @@
 package net.opencurlybraces.android.projects.androidpractices;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import net.opencurlybraces.android.projects.androidpractices.util.PowerUtils;
 import net.opencurlybraces.android.projects.androidpractices.util.PrefUtils;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -22,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
 
     @InjectView (R.id.hello_text)
     TextView mHelloText;
-    AtomicBoolean mIsCharging = new AtomicBoolean();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +42,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent batteryStatus = MainActivity.this.registerReceiver(null, ifilter);
+        PrefUtils.setBatteryCharging(this, PowerUtils.isBatteryCharging(this));
 
-        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        boolean isCharging = (status == BatteryManager.BATTERY_STATUS_CHARGING || status ==
-                BatteryManager.BATTERY_STATUS_FULL);
-
-        if ((status == BatteryManager.BATTERY_STATUS_CHARGING) ^ mIsCharging.get()) {
-            mIsCharging.set(isCharging);
-            PrefUtils.setBatteryCharging(this, isCharging);
-        }
     }
 
 
@@ -131,5 +124,11 @@ public class MainActivity extends ActionBarActivity {
 
         }
     }
+
+    /**
+     * Return the battery charging status
+     *
+     * @return boolean
+     */
 
 }

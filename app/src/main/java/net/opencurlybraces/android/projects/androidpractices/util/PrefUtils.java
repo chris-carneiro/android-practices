@@ -32,7 +32,7 @@ public class PrefUtils {
     }
 
     /**
-     * Stores asynchronously the battery charging status in {@link SharedPreferences}.
+     * Store asynchronously the battery charging status in {@link SharedPreferences}.
      *
      * @param context
      * @param isCharging
