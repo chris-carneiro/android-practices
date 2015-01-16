@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 
-import net.opencurlybraces.android.projects.androidpractices.util.PrefUtils;
+import net.opencurlybraces.android.projects.androidpractices.util.PowerUtils;
 
 /**
- * Receiver thats listen to changes in power status changes
+ * Receiver that listens to changes in power status changes
  * <p/>
- * TODO implement and define in manifest Created by chris on 16/01/15.
+ * Created by chris on 16/01/15.
  */
 public class PowerConnectionReceiver extends BroadcastReceiver {
     @Override
@@ -20,6 +20,6 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
         boolean isCharging = (status == BatteryManager.BATTERY_STATUS_CHARGING || status ==
                 BatteryManager.BATTERY_STATUS_FULL);
 
-        PrefUtils.setBatteryCharging(context, isCharging);
+        PowerUtils.setBatteryCharging(context, isCharging);
     }
 }
