@@ -1,9 +1,5 @@
 package net.opencurlybraces.android.projects.androidpractices;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,9 +7,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import net.opencurlybraces.android.projects.androidpractices.util.PowerUtils;
-import net.opencurlybraces.android.projects.androidpractices.util.PrefUtils;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -42,7 +35,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        PrefUtils.setBatteryCharging(this, PowerUtils.isBatteryCharging(this));
+        PowerUtils.setBatteryCharging(this, PowerUtils.isBatteryCharging(this));
+        mHelloText.setText("Charging="+PowerUtils.isBatteryCharging(this));
 
     }
 
@@ -124,11 +118,5 @@ public class MainActivity extends ActionBarActivity {
 
         }
     }
-
-    /**
-     * Return the battery charging status
-     *
-     * @return boolean
-     */
 
 }
