@@ -35,8 +35,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        PowerUtils.setBatteryCharging(this, PowerUtils.isBatteryCharging(this));
-        mHelloText.setText("Charging="+PowerUtils.isBatteryCharging(this));
+        /** Here check battery charging status, modify data update rate,
+         resources usage etc... accordingly **/
 
     }
 
