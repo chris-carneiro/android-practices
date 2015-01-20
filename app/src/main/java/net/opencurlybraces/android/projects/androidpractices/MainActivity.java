@@ -1,15 +1,17 @@
 package net.opencurlybraces.android.projects.androidpractices;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
-
-import net.opencurlybraces.android.projects.androidpractices.util.PowerUtils;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -18,6 +20,11 @@ public class MainActivity extends ActionBarActivity {
     @InjectView (R.id.hello_text)
     TextView mHelloText;
 
+    @InjectView (R.id.image_chooser)
+    Button mImageChooserButton;
+
+    //Identifies the way the user picks an image
+    private static final int PICK_FROM_FILE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,23 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @OnClick (R.id.image_chooser)
+    void onClick() {
+        chooseImage();
+    }
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(intent, "Complete action using"),
+                PICK_FROM_FILE);
+    }
+
 
     @Override
     public void onTrimMemory(int level) {
